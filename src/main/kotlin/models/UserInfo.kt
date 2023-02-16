@@ -1,5 +1,6 @@
 package models
 
 import kotlinx.serialization.Serializable
+
 @Serializable
-data class Contributor(val login: String, val contributions: Int)
+data class UserInfo(val login: String, val location: String?)
