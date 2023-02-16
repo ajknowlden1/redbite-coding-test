@@ -6,6 +6,6 @@ commits, and displaying the username, number of commits and location, if it is k
 ## Setup
 
 ### Authorisation
-You may need to edit the `local.properties` file and add a GitHub Fine-grained personal access token
+You may need to edit the `local.properties` file and add a GitHub  personal access token
 to use this application. This is because the GitHub API is rate-limited, and non-authenticated users are limited to
 60 requests per hour.
