@@ -1,7 +1,9 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import api.GitHubAPIClient
+import models.Contributor
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+fun main(args: Array<String>) {
+    val api = GitHubAPIClient();
+
+    val contributors: List<Contributor> = api.getTopContributorsForRepo("https://api.github.com/repos/practical-tutorials/project-based-learning/contributors?per_page=25")
+
 }
