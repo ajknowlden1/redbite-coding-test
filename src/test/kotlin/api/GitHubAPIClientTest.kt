@@ -12,13 +12,13 @@ class GitHubAPIClientTest {
 
     @Test
     fun shouldReturnTheTop25Contributors() {
-        val result: List<Contributor>? = api.getTopContributorsForRepo("https://api.github.com/repos/practical-tutorials/project-based-learning/contributors?per_page=25")
+        val result: List<Contributor>? = api.getTopContributorsForRepo()
         assertTrue(result?.size == 25)
     }
 
     @Test
     fun shouldReturnContributorsSortedByNumberOfCommits() {
-        val result: List<Contributor>? = api.getTopContributorsForRepo("https://api.github.com/repos/practical-tutorials/project-based-learning/contributors?per_page=25")
+        val result: List<Contributor>? = api.getTopContributorsForRepo()
         val sorted: List<Contributor>? = result?.sortedByDescending { it.contributions }
         assertEquals(result, sorted)
     }
