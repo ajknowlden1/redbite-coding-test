@@ -3,7 +3,7 @@ package api
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import models.Contributor
-import models.UserInfo
+import models.ContributorInfo
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -20,7 +20,7 @@ class GitHubAPIClient {
     private val token: String = Properties().apply {
         load(FileInputStream(File("local.properties")))
     }.getProperty("TOKEN")
-    fun getTopContributorsForRepo(url: String): List<Contributor>
+    fun getTopContributorsForRepo(url: String): List<Contributor>?
     {
         val request: Request = Request.Builder()
             .url(url)
@@ -29,7 +29,7 @@ class GitHubAPIClient {
 
         val response: Response = client.newCall(request).execute()
 
-        return json.decodeFromString(response.body!!.string())
+        return response.body?.string()?.let { json.decodeFromString(it) }
     }
     fun getUserLocation(user: Contributor): String {
 
@@ -40,8 +40,8 @@ class GitHubAPIClient {
 
         val response: Response = client.newCall(request).execute()
 
-        val userInfo: UserInfo = json.decodeFromString(response.body!!.string())
+        val contributorInfo: ContributorInfo = json.decodeFromString(response.body!!.string())
 
-        return userInfo.location ?: "Unknown"
+        return contributorInfo.location ?: "Unknown"
     }
 }
