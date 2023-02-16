@@ -20,7 +20,11 @@ class GitHubAPIClient {
     private val token: String = Properties().apply {
         load(FileInputStream(File("local.properties")))
     }.getProperty("TOKEN")
-    fun getTopContributorsForRepo(url: String): List<Contributor>?
+
+    private val url: String = Properties().apply {
+        load(FileInputStream(File("local.properties")))
+    }.getProperty("URL")
+    fun getTopContributorsForRepo(): List<Contributor>?
     {
         val request: Request = Request.Builder()
             .url(url)
@@ -39,7 +43,6 @@ class GitHubAPIClient {
             .build()
 
         val response: Response = client.newCall(request).execute()
-
         val contributorInfo: ContributorInfo = json.decodeFromString(response.body!!.string())
 
         return contributorInfo.location ?: "Unknown"
